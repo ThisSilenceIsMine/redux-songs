@@ -1,22 +1,18 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 
-const SongDetail = ({ song }) => {
-    return song ? (
-        <div>
+const SongDetail = () => {
+    const song = useSelector((state) => state.selectedSong);
+    if (!song) {
+        return <h1>Please, select a song!</h1>;
+    }
+    return (
+        <>
             <h3>Details for:</h3>
             <p>{song.title}</p>
             <p>Duration: {song.duration}</p>
-        </div>
-    ) : (
-        <div>Please, select a song!</div>
+        </>
     );
 };
 
-const mapState = (state) => {
-    return {
-        song: state.selectedSong,
-    };
-};
-
-export default connect(mapState)(SongDetail);
+export default SongDetail;
